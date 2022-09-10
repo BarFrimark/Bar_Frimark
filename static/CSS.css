@@ -1,4 +1,164 @@
-* {
-    color: white;
-    background-color: rgb(72, 144, 200);
+body{
+    --color-MainBlue: #0181FF;
+    --color-DarkBlue: #045eb8b6;
+    --color-Green: #009F3D;
+    --color-Red:#DF0024;
+    background-image: url(BlueBack.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment:fixed ;
+    font-family: RegularFont;
+    letter-spacing: .1rem;    
 }
+/*fonts setting*/
+@font-face{
+    font-family: RegularFont;
+    src: url(PTSans-Regular.ttf);}
+@font-face{
+    font-family: BoldFont;
+    src: url(PTSans-Bold.ttf);}
+
+@media screen and (max-width: 600px){
+    .container{
+        display: grid;
+        grid-template-areas: 
+        'logo topCenter logOut'
+        'left left left' 
+        'midCenter midCenter midCenter'
+        'right right right'
+        'leftB leftB leftB'
+        'BCenter BCenter BCenter' 
+        'rightB rightB rightB';
+    }
+    .split__left {
+        margin: 0;
+    }
+    .split__right {
+        width: 100%;
+    }
+}
+
+.container{
+    display: grid;
+    grid-template-areas: 
+    'logo topCenter logOut'
+    'left midCenter right'
+    'leftB BCenter rightB';
+}
+
+.logo{
+    grid-area: logo;
+    height: 10vh;   
+}
+
+.logOut{
+    grid-area: logOut;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.split__left{
+    grid-area: left;
+    margin-top: 150px;
+    height: auto;
+}
+
+h1{
+    font-size: 40px;
+    font-family: BoldFont;
+}
+
+h1,h2{
+    text-align: center;
+    color: white;
+}
+
+.split__right{
+    width: 55vw;
+    height: 80vh;
+    grid-area: right;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 5px;
+    background-image: url(../static/SignBoxs.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.form__title{  
+    color: black;
+}
+
+.form{  
+    margin-left: 20%;
+    width: 60%; 
+}
+
+.form__input{
+    display: flex;  
+    font-size: 18px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+button{
+    width: 180px;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color-DarkBlue);
+    color: white;
+    font-family: RegularFont;
+    margin: 20px;
+}
+
+button:hover {
+    opacity: 0.5;
+}
+
+p{
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;   
+}
+
+.HomePage{
+    grid-area: left;
+    text-align: center;
+    width: 70vw;
+    margin-left: 15vw;
+}
+
+#start__button{
+    background: var(--color-Green); 
+}
+
+.Reports{
+    grid-area: leftB;
+    margin-top: 30px;
+    margin-left: 20vw;
+    width: 60vw;
+    font-size: 18px;
+    letter-spacing: 1px;
+    background-image: url(../static/SignBoxs.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: 0.5%;
+    table-layout: fixed;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+th {
+    font-family: BoldFont;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+
