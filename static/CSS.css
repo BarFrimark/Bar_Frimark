@@ -24,7 +24,8 @@ body{
     display: grid;
     grid-template-areas: 
     'logo  logOut'
-    'left  right';
+    'left  right'
+    'bottom bottom';
 }
 
 .logo{
@@ -120,6 +121,7 @@ p{
 }
 
 .Reports{
+    grid-area: bottom;
     margin-top: 30px;
     margin-left: 20vw;
     width: 60vw;
@@ -152,7 +154,8 @@ th {
         grid-template-areas: 
         'logo logOut'
         'left left' 
-        'right right';
+        'right right'
+        'bottom bottom';
     }
     .split__left {
         margin: 0;
