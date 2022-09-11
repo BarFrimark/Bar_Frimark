@@ -96,7 +96,7 @@ button{
     background-color: var(--color-DarkBlue);
     color: white;
     font-family: RegularFont;
-    margin: 20px;
+    margin: 15px;
 }
 
 button:hover {
@@ -139,14 +139,15 @@ p{
 
 th {
     font-family: BoldFont;
-    font-size: 20px;
+    font-size: 18px;
     padding-bottom: 10px;
 }
 
 #passwordCheck{
     font-family: BoldFont;
-    color: black;
+    color: red;
     font-size: 18px;
+    background-color: ghostwhite;
 }
 @media (max-width: 600px){
     .container{
