@@ -18,32 +18,13 @@ body{
     font-family: BoldFont;
     src: url(PTSans-Bold.ttf);}
 
-@media screen and (max-width: 600px){
-    .container{
-        display: grid;
-        grid-template-areas: 
-        'logo topCenter logOut'
-        'left left left' 
-        'midCenter midCenter midCenter'
-        'right right right'
-        'leftB leftB leftB'
-        'BCenter BCenter BCenter' 
-        'rightB rightB rightB';
-    }
-    .split__left {
-        margin: 0;
-    }
-    .split__right {
-        width: 100%;
-    }
-}
+
 
 .container{
     display: grid;
     grid-template-areas: 
-    'logo topCenter logOut'
-    'left midCenter right'
-    'leftB BCenter rightB';
+    'logo  logOut'
+    'left  right';
 }
 
 .logo{
@@ -139,7 +120,6 @@ p{
 }
 
 .Reports{
-    grid-area: leftB;
     margin-top: 30px;
     margin-left: 20vw;
     width: 60vw;
@@ -159,6 +139,27 @@ th {
     font-family: BoldFont;
     font-size: 20px;
     padding-bottom: 10px;
+}
+
+#passwordCheck{
+    font-family: BoldFont;
+    color: black;
+    font-size: 18px;
+}
+@media (max-width: 600px){
+    .container{
+        display: grid;
+        grid-template-areas: 
+        'logo logOut'
+        'left left' 
+        'right right';
+    }
+    .split__left {
+        margin: 0;
+    }
+    .split__right{
+        width: 100%;
+    }
 }
 
 

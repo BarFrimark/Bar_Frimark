@@ -16,13 +16,14 @@
             <h2>Here you can track your attendance clock from anywhere and at anytime</h2>
         </div> 
         <div class="split__right">
-            <form action="" method="" class="form">
+            <form action="" method="" class="form" onsubmit="return validPassword()">
                 <h1 class="form__title">Create New User</h1>
                 <input type="text" required class="form__input" autofocus placeholder="First Name"><br>
                 <input type="text" required class="form__input" autofocus placeholder="Last Name"><br>
                 <input type="email" required class="form__input" autofocus placeholder="Email Address"><br>
                 <input type="text" required class="form__input" autofocus placeholder="Choose Username"><br>
-                <input type="password" required class="form__input" autofocus placeholder="Choose Password"><br>
+                <input type="password" required class="form__input" id="newPassword" autofocus placeholder="Choose Password"><br>
+                <span id="passwordCheck"></span><br>
                 <button type="submit">Create</button>
             </form>
             <p>Already have an account? <a href="SignIn.html">Sign In here</a></p> 

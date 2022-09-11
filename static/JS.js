@@ -21,3 +21,12 @@ function showtable1() {
     }
 }
 
+function validPassword()
+{
+    var p = document.getElementById("newPassword").value; 
+    if(!p.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {  
+         document.getElementById("passwordCheck").innerHTML = "Password must contain 8 characters, numbers, upper and lower case letters";  
+         return false;
+    }
+    return true;
+}
