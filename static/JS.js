@@ -1,55 +1,53 @@
-function Greeting() {
-    console.log("im in my greeting");
-    var time = new Date().getUTCHours();
+function Greeting() {   
+    var time = new Date().getHours();
     let greeting;
-    if (time < 11) {
-        greeting = "Good morning Bar";
-    } else if (time < 18) {
-        greeting = "Good Day Bar";
-    } else {
-        greeting = "Good evening Bar";
-    }
+    if (time < 12) {
+        greeting = "Good morning";} 
+    else if (time < 19) {
+        greeting = "Good Day";} 
+    else {
+        greeting = "Good evening";}
     document.getElementById("greet").innerHTML = greeting;
-};
+    document.getElementById("Report").style.display = "none";
+}
 
-
-function StartEndShift(){
-    if(document.getElementById("start__button").innerHTML == "Start New Shift"){
-        document.getElementById("start__button").innerHTML = "End This Shift";
-        document.getElementById("start__button").style.background = '#DF0024';    
-    }
+function StartEndShift() {
+    var text;
+    var style;
+    var current = document.getElementById("startEnd__button");
+    if(current.innerHTML == "Start New Shift"){
+        text = "End This Shift";
+        style = '#DF0024';}
     else{
-        document.getElementById("start__button").innerHTML = "Start New Shift";
-        document.getElementById("start__button").style.background = '#009F3D';    
-    }
+        text = "Start New Shift";
+        style = '#009F3D';}
+    current.innerHTML = text;
+    current.style.background = style;
 }
 
-function showtable1() {
-    var x = document.getElementById("Report");
-    if (x.style.display === "none") {
-        document.getElementById("ReportButton").innerHTML = "Hide Report";
-        x.style.display = "table";
-        x.style.position = "center";
-    } else {
-        x.style.display = "none";
-        document.getElementById("ReportButton").innerHTML = "Show Report";
-    }
+function ShowHideReport() {
+    var r = document.getElementById("Report");
+    var rb = document.getElementById("ReportButton");
+    if (r.style.display === "none") {
+        rb.innerHTML = "Hide Report";
+        r.style.display = "table";
+        r.style.position = "center";} 
+    else { 
+        rb.innerHTML = "Show Report";
+        r.style.display = "none";}
 }
 
-function validPassword()
-{
-    var p = document.getElementById("newPassword").value; 
+function validPassword() {
+    var p = document.getElementById("newPassword").value;
+    var pc = document.getElementById("passwordCheck"); 
     if(p.length<8) {  
-         document.getElementById("passwordCheck").innerHTML = "Password must contain 8 characters";  
-         return false;
-    }
+        pc.innerHTML = "Password must contain 8 characters";  
+         return false;}
     if(!p.match(/(?=.*\d)/g)) {  
-        document.getElementById("passwordCheck").innerHTML = "Password must contain numbers";  
-        return false;
-    }
+        pc.innerHTML = "Password must contain numbers";  
+        return false;}
     if(!p.match(/(?=.*[a-z])(?=.*[A-Z])/g)) {  
-        document.getElementById("passwordCheck").innerHTML = "Password must contain upper and lower case letters";  
-        return false;
-    }
+        pc.innerHTML = "Password must contain upper and lower case letters";  
+        return false;}
     return true;
 }
