@@ -99,7 +99,7 @@ button:hover {
     0%  {opacity: 0;}
     100% {opacity: 1;}}
 
-#passwordCheck{
+#massage{
     font-family: BoldFont;
     color: red;
     font-size: 18px;

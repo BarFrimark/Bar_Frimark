@@ -37,17 +37,41 @@ function ShowHideReport() {
         r.style.display = "none";}
 }
 
-function validPassword() {
+function validation() {
+    var fName = document.getElementById("fName").value;
+    var lName = document.getElementById("lName").value;
+    var u = document.getElementById("newUsername").value;
     var p = document.getElementById("newPassword").value;
-    var pc = document.getElementById("passwordCheck"); 
-    if(p.length<8) {  
-        pc.innerHTML = "Password must contain 8 characters";  
+    var massage = document.getElementById("massage"); 
+    if(!fName.match(/^[a-zA-Z]*$/)) { 
+        massage.innerHTML = "*Invalid first name, please type again in English only";  
+        return false;} 
+    if(!lName.match(/^[a-zA-Z]*$/) && !lName.match(/^[a-zA-Z]+ [a-zA-Z]+$/) && !lName.match(/^[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/)) { 
+        massage.innerHTML = "*Invalid last name, please type again in English only";  
+        return false;}
+    if(fName.length < 2) {  
+        massage.innerHTML = "*First name too short";  
+            return false;}
+    if(fName.length > 15) {  
+        massage.innerHTML = "*First name too long";  
+            return false;}
+    if(lName.length < 2) {  
+        massage.innerHTML = "*Last name too short";  
+            return false;}
+    if(u.length < 4) {  
+        massage.innerHTML = "*Username must contain minimum 4 characters";  
+            return false;}
+    if(p.length < 8) {  
+        massage.innerHTML = "*Password must contain 8 characters";  
          return false;}
     if(!p.match(/(?=.*\d)/g)) {  
-        pc.innerHTML = "Password must contain numbers";  
+        massage.innerHTML = "*Password must contain numbers";  
         return false;}
     if(!p.match(/(?=.*[a-z])(?=.*[A-Z])/g)) {  
-        pc.innerHTML = "Password must contain upper and lower case letters";  
+        massage.innerHTML = "*Password must contain upper and lower case letters";  
+        return false;}
+    if(!p.match(/^[a-zA-Z0-9]*$/)) {  
+        massage.innerHTML = "*Password must contain only digits & English letters";  
         return false;}
     return true;
 }
