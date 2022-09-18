@@ -1,12 +1,12 @@
 function Greeting() {   
     var time = new Date().getHours();
     let greeting;
-    if (time < 12) {
+    if (time > 5 && time < 12) {
         greeting = "Good morning";} 
-    else if (time < 19) {
+    else if (time >= 12 && time < 21) {
         greeting = "Good Day";} 
     else {
-        greeting = "Good evening";}
+        greeting = "Good night";}
     document.getElementById("greet").innerHTML = greeting;
     document.getElementById("Report").style.display = "none";
 }
@@ -40,6 +40,7 @@ function ShowHideReport() {
 function validation() {
     var fName = document.getElementById("fName").value;
     var lName = document.getElementById("lName").value;
+    var mail = document.getElementById("mail").value;
     var u = document.getElementById("newUsername").value;
     var p = document.getElementById("newPassword").value;
     var massage = document.getElementById("massage"); 
@@ -51,19 +52,22 @@ function validation() {
         return false;}
     if(fName.length < 2) {  
         massage.innerHTML = "*First name too short";  
-            return false;}
+        return false;}
     if(fName.length > 15) {  
         massage.innerHTML = "*First name too long";  
-            return false;}
+        return false;}
     if(lName.length < 2) {  
         massage.innerHTML = "*Last name too short";  
-            return false;}
+        return false;}
+    if(!mail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+        massage.innerHTML = "*Invalid email address"
+        return false;}
     if(u.length < 4) {  
         massage.innerHTML = "*Username must contain minimum 4 characters";  
-            return false;}
+        return false;}
     if(p.length < 8) {  
         massage.innerHTML = "*Password must contain 8 characters";  
-         return false;}
+        return false;}
     if(!p.match(/(?=.*\d)/g)) {  
         massage.innerHTML = "*Password must contain numbers";  
         return false;}
