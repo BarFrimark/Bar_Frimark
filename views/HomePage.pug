@@ -1,0 +1,23 @@
+extends layout
+block content
+    a(href="/")
+        button.logOut(type="submit") Log out
+    .HomePage
+        h1#greet #{firstName}
+        button#startEnd__button(type="submit", onclick="StartEndShift()") End This Shift
+        button#ReportButton(onclick="ShowHideReport()", type="submit") Show Report
+    br
+    table#Report.Reports
+        thead
+            tr
+            th Shift date
+            th Clock in
+            th Clock out
+            th Total hours
+        tbody
+            each n in shifts
+                tr
+                td= n.date
+                td= n.start_time
+                td= n.end_time
+                td= n.total_time

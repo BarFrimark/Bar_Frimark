@@ -1,10 +1,10 @@
 /* website fonts */
 @font-face{
     font-family: RegularFont;
-    src: url(PTSans-Regular.ttf);}
+    src: url(./fonts/PTSans-Regular.ttf);}
 @font-face{
     font-family: BoldFont;
-    src: url(PTSans-Bold.ttf);}
+    src: url(./fonts/PTSans-Bold.ttf);}
 
 /* website grid */    
 .container{
@@ -20,7 +20,7 @@ body{
     --color-DarkBlue: #045eb8b6;
     --color-Green: #009F3D;
     --color-Red:#DF0024;
-    background-image: url(BlueBack.jpg);
+    background-image: url(./images/BlueBack.jpg);
     background-repeat: no-repeat;
     background-size:cover;
     background-attachment:fixed ;
@@ -67,7 +67,7 @@ button:hover {
     margin: auto;
     padding: 1rem;
     border-radius: 5px;
-    background-image: url(../static/SignBoxs.jpg);
+    background-image: url(./images/SignBoxs.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;}
@@ -92,14 +92,14 @@ button:hover {
 .bottomLine{
     text-align: center;
     padding-top: 20px;
-    font-size: 18px; 
+    font-size: 20px; 
     animation: 3s fadeIn;}
 
 @keyframes fadeIn{
     0%  {opacity: 0;}
     100% {opacity: 1;}}
 
-#massage{
+.errorMassage{
     font-family: BoldFont;
     color: red;
     font-size: 18px;
@@ -128,7 +128,7 @@ button:hover {
     width: 60vw;
     font-size: 18px;
     letter-spacing: 1px;
-    background-image: url(../static/SignBoxs.jpg);
+    background-image: url(./images/SignBoxs.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-image: 0.5%;

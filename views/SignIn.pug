@@ -1,0 +1,17 @@
+extends layout
+block content
+    .split__left
+        h1#welcome Welcome to CLOCK IT
+        h2 Here you can track your attendance clock from anywhere and at anytime
+    .split__right
+        form.form(action="/checkLogIn", method="post")
+            h1.form__title Sign In
+            input.form__input#Username(type="text", required, name="Username", autofocus, placeholder="Username")
+            br
+            input.form__input#Password(type="password", required, name="Password", autofocus, placeholder="Password")
+            br
+            div.errorMassage #{SignInError}
+            button(type="submit") Connect                
+            p.bottomLine
+                | Not have an account?  
+                a(href="/SignUp") Sign UP here

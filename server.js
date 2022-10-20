@@ -1,18 +1,32 @@
-var http = require('http');
-var fs = require('fs');
-var port = 3030;
-var url = require('url');
-var adr ='http://localhost:3030/';
+const express = require('express');
+const path = require('path');
+const CRUD = require('./CRUD');
+//const bodyParser = require ('body-parser');
 
-http.createServer(function(req,res){
-    var q = url.parse(req.url, true);
-    var filename = "." + q.pathname;
-    fs.readFile(filename,function(err, data){
-        if(err){
-            res.writeHead("Bad idea");
-            return res.end("404 not found");
-        }
-        res.write(data);
-        return res.end();    
-    });
-}).listen(port);
+const app = express();
+const port = 8080;
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname,'public')));
+
+app.get('/', function(req,res){
+    res.render("SignIn")
+});
+app.get('/SignUp', function(req,res){
+    res.render('SignUp') 
+});
+app.get('/HomePage', CRUD.updateShiftTable);
+
+app.post('/checkLogIn', CRUD.checkLogIn);
+
+// create a new User and open home page
+app.post("/newUser", CRUD.createNewUser);
+
+app.listen(port, function(){
+    console.log("server is on port" + port)
+});

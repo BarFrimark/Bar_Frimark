@@ -39,3 +39,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+// app.listen(3030, function(){
+//   console.log("server is on port" + 3030)
+// });

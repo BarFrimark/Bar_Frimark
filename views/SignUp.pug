@@ -1,0 +1,23 @@
+extends layout
+block content
+    .split__left
+        h1#welcome Welcome to CLOCK IT
+        h2 Here you can track your attendance clock from anywhere and at anytime
+    .split__right
+        form.form(action="/newUser", method="post", onsubmit="return validation()")
+            h1.form__title Create New User
+            input.form__input#fName(type="text", required, autofocus, name="fName", placeholder="First Name")
+            br
+            input.form__input#lName(type="text", required, autofocus, name="lName", placeholder="Last Name")
+            br
+            input.form__input#mail(type="email", required, autofocus, name="mail", placeholder="Email Address")
+            br
+            input.form__input#newUsername(type="text", required, autofocus, name="newUsername", placeholder="Choose Username")
+            br
+            input.form__input#newPassword(type="password", required, name="newPassword", autofocus, placeholder="Choose Password")
+            br
+            div#massage.errorMassage #{SignUpError}
+            button(type="submit") Create 
+            p.bottomLine
+                | Already have an account? 
+                a(href="/") Sign In here
