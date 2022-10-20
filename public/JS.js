@@ -1,15 +1,14 @@
-function Greeting() {   
-    var time = new Date().getHours();
-    let greeting;
-    if (time > 5 && time < 12) {
-        greeting = "Good morning";} 
-    else if (time >= 12 && time < 21) {
-        greeting = "Good Day";} 
-    else {
-        greeting = "Good night";}
-    document.getElementById("greet").innerHTML = greeting;
-    document.getElementById("Report").style.display = "none";
-}
+// function Greeting() {   
+//     var time = new Date().getHours();
+//     let greeting;
+//     if (time > 5 && time < 12) {
+//         greeting = "Good morning";} 
+//     else if (time >= 12 && time < 21) {
+//         greeting = "Good Day";} 
+//     else {
+//         greeting = "Good night";}
+//     document.getElementById("greet").innerHTML = greeting;
+// }
 
 function StartEndShift() {
     var text;
@@ -28,7 +27,7 @@ function StartEndShift() {
 function ShowHideReport() {
     var r = document.getElementById("Report");
     var rb = document.getElementById("ReportButton");
-    if (r.style.display === "none") {
+    if (rb.innerHTML == "Show Report") {
         rb.innerHTML = "Hide Report";
         r.style.display = "table";
         r.style.position = "center";} 

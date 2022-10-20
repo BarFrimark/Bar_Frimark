@@ -3,9 +3,9 @@ block content
     a(href="/")
         button.logOut(type="submit") Log out
     .HomePage
-        h1#greet #{firstName}
+        h1 #{greet}
         button#startEnd__button(type="submit", onclick="StartEndShift()") End This Shift
-        button#ReportButton(onclick="ShowHideReport()", type="submit") Show Report
+        button#ReportButton(type="submit", onclick="ShowHideReport()") Show Report
     br
     table#Report.Reports
         thead
@@ -17,7 +17,7 @@ block content
         tbody
             each n in shifts
                 tr
-                td= n.date
+                td= n.date.toDateString()
                 td= n.start_time
                 td= n.end_time
                 td= n.total_time

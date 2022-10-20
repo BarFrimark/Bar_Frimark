@@ -70,7 +70,17 @@ const updateShiftTable = (req,res)=>{
             res.status(400).send({message:"error in getting all projects " + err})
             return;
         }
-        res.render('HomePage', {firstName: currentUser.first_name, shifts: mysqlres});
+        var time = new Date().getHours();
+        let greeting;
+        if (time > 5 && time < 12) {
+            greeting = "Good morning";} 
+        else if (time >= 12 && time < 21) {
+            greeting = "Good Day";} 
+        else {
+            greeting = "Good night";}
+        let name = currentUser.first_name;  
+        let fullGreeting = greeting +" "+ name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        res.render('HomePage', {greet: fullGreeting, shifts: mysqlres});
     });
 }
 

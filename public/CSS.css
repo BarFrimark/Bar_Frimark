@@ -135,7 +135,8 @@ button:hover {
     table-layout: fixed;
     padding: 5px;
     border-radius: 10px;
-    text-align: center;}
+    text-align: center;
+    display: none;}
 
 th {
     font-family: BoldFont;
