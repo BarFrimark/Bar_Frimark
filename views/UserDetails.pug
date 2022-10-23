@@ -1,0 +1,18 @@
+extends layout
+block content
+    a(href="/HomePage")
+        button.logOut(type="submit") Back
+    .Body
+        .split__right
+            form.form(action="/updateUser", method="post", onsubmit="return UpdateValidation()")
+                h1.form__title User Details 
+                input.form__input#firstName(type="text", required, autofocus, name="firstName", value = firstName, placeholder="First Name")
+                br
+                input.form__input#lastName(type="text", required, autofocus, name="lastName", value = lastName, placeholder="Last Name")
+                br
+                input.form__input#email(type="email", required, autofocus, name="email", value = email, placeholder="Email Address")
+                br
+                input.form__input#updatedPassword(type="text", required, autofocus, name="updatedPassword", value = password, placeholder="Password")
+                br
+                div(style={color:mColor})#updatemassage.errorMassage #{updated}
+                button(type="submit") Update

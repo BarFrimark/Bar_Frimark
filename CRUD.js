@@ -2,7 +2,6 @@ const sql = require("./db");
 var currentUser = {"first_name": null, "last_name": null, "email": null, "username": null, "password": null};
 
 const createNewUser = function(req,res){
-    // Validate request
     if(!req.body){
         res.status(400).send({message: "content cannot be empty"});
         return;
@@ -15,7 +14,7 @@ const createNewUser = function(req,res){
         "password": req.body.newPassword
     };
     sql.query("SELECT * FROM USERS where username like ?", newUser.username + '%' , (err, mysqlres) => {
-        if (mysqlres.length>0) {
+        if (mysqlres.length > 0) {
             console.log("got user by username: " + newUser.username);
             res.status(400).render('SignUp',{SignUpError:"*Username taken, try another one"});
             return;
@@ -28,7 +27,7 @@ const createNewUser = function(req,res){
                     res.status(400).send({message: "error in creating user: " + err});
                     return;
                 }
-                console.log("created user: ", { id: mysqlres.insertId, ...newUser });
+                console.log("created user: ", {newUser});
                 res.redirect('HomePage');
                 return;
             });
@@ -63,11 +62,11 @@ const checkLogIn = function(req,res){
     });
 };
 
-const updateShiftTable = (req,res)=>{
+const HomePageUpload = (req,res)=>{
     sql.query("SELECT * FROM SHIFTS WHERE username= ?", currentUser.username , (err, mysqlres)=>{
         if (err) {
-            console.log("error in getting all projects " + err);
-            res.status(400).send({message:"error in getting all projects " + err})
+            console.log("error in getting shifts " + err);
+            res.status(400).send({message:"error in getting shifts " + err})
             return;
         }
         var time = new Date().getHours();
@@ -80,62 +79,102 @@ const updateShiftTable = (req,res)=>{
             greeting = "Good night";}
         let name = currentUser.first_name;  
         let fullGreeting = greeting +" "+ name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-        res.render('HomePage', {greet: fullGreeting, shifts: mysqlres});
+        let bColor;
+        let bValue;
+        if(mysqlres.length == 0 || mysqlres[mysqlres.length-1].end_time != null){
+            bColor = '#009F3D';
+            bValue = 'Start New Shift';
+        }
+        else{
+            bColor = '#DF0024';
+            bValue = 'End This Shift';
+        }
+        res.render('HomePage', {greet: fullGreeting, shifts: mysqlres, bColor:bColor, bValue:bValue});
     });
 }
 
-module.exports = {createNewUser, checkLogIn, updateShiftTable};
+const startEndShift = (req,res)=>{
+    var dateTime = new Date();
+    sql.query("SELECT * FROM SHIFTS WHERE username= ?", currentUser.username , (err, mysqlres)=>{
+        if (err) {
+            console.log("error in getting shifts " + err);
+            res.status(400).send({message:"error in getting shifts " + err})
+            return;
+        }
+        else if(mysqlres.length == 0 || mysqlres[mysqlres.length-1].end_time != null){
+            const newShift = {
+                "username": currentUser.username,
+                "date": dateTime.toISOString().substring(0, 10),
+                "start_time": dateTime.toLocaleTimeString()
+            };
+            sql.query("INSERT INTO SHIFTS SET ?", newShift , (err, mysqlres)=>{
+                if (err) {
+                    console.log("error: ", err);
+                    res.status(400).send({message: "error in creating shift: " + err});
+                    return;
+                }
+                console.log("created shift: ", {newShift});
+                res.redirect('HomePage');
+                return;
+            });
+        }
+        else{
+            const end_time = dateTime.toLocaleTimeString();
+            const date = dateTime.toISOString().substring(0, 10);
+            const query = "UPDATE SHIFTS SET end_time = ? WHERE username = ? AND date = ?;"
+            sql.query(query, [end_time, currentUser.username, date] , (err, mysqlres)=>{
+                if (err) {
+                    console.log("error: ", err);
+                    res.status(400).send({message: "error in updating the end of the shift: " + err});
+                    return;
+                }
+                console.log("shift ended in: ", {end_time});
+                res.redirect('HomePage');
+                return;
+            });
+        }
+    });
+}
 
-// const getAllUsers = function(req, res){
-//     sql.query("SELECT * FROM USERS", (err, mysqlres) => {
-//     if (err) {
-//         console.log("error: ", err);
-//         res.status(400).send({message: "error in getting all users: " + err});
-//         return;
-//     }
-//     console.log("got all users");
-//     res.send(mysqlres);
-//     return;
-//     });
-// };
+const updateUserUpload = (req,res)=>{
+    res.render('UserDetails', 
+    {   firstName: currentUser.first_name,
+        lastName: currentUser.last_name,
+        email: currentUser.email,
+        password: currentUser.password
+    })
+}
 
-// const updateUser = (req,res) =>{
-//     // check if body is empty
-//     if (!req.body) {
-//         res.status(400).send({message: "content can not be empty"});
-//         return;
-//     }
-//     const updateUser = {
-//         "first_name": req.body.updateFName,
-//         "last_name": req.body.updateLName,
-//         "email": req.body.updateMail,
-//         "username": req.body.updateUsername,
-//         "password": req.body.updatePassword
-//     };
-//     let query = "UPDATE users set email = ? WHERE username = ?";
-//     let data = [updateUser.first_name, updateUser.last_name, updateUser.email, updateUser.username, updateUser.password];
-//     // execute query
-//     sql.query(query, data, (err, results)=>{
-//         if (err) {
-//             console.log("error is: " + err);
-//             res.status(400).send({message: "error in updating user " + err});
-//             return;
-//         }
-//         console.log(results.affectedRows, "rows effected");
-//         res.send({message: results.affectedRows + " rows effected"});
-//     });
-// };
+const updateUser = function(req,res){
+    if(!req.body){
+        res.status(400).send({message: "content cannot be empty"});
+        return;
+    }
+    const UpdatedUser = {
+        "first_name": req.body.firstName,
+        "last_name": req.body.lastName,
+        "email": req.body.email,
+        "username": currentUser.username,
+        "password": req.body.updatedPassword
+    };
+    sql.query("UPDATE USERS SET ? WHERE username = ? ", [UpdatedUser,currentUser.username]  , (err, mysqlres) => {
+        if (err) {
+            console.log("error: ", err);
+            res.status(400).send({message: "error in updating user: " + err});
+            return;
+        }
+        currentUser = UpdatedUser;
+        console.log("updated user: ", {UpdatedUser});
+        res.render('UserDetails', 
+        {   firstName: currentUser.first_name,
+            lastName: currentUser.last_name,
+            email: currentUser.email,
+            password: currentUser.password,
+            updated: "The user has been updated successfully",
+            mColor: "green"
+        })
+        return;
+    }); 
+};
 
-// const findUser = function(req, res) {
-//     const username = req.body.newUsername;
-//     sql.query("SELECT * FROM USERS where username like ?", username + '%' , (err, mysqlres) => {
-//         if (err) {
-//             console.log("error: ", err);
-//             res.status(400).send({message: "error in getting user by username: " + err});
-//             return;
-//         }
-//         console.log("got user by username" + username);
-//         res.status(200).send(mysqlres);
-//         return;
-//         });
-//     };
+module.exports = {createNewUser, checkLogIn, HomePageUpload, startEndShift, updateUserUpload, updateUser};

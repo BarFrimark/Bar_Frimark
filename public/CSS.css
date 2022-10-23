@@ -12,6 +12,7 @@
     grid-template-areas: 
     'logo  logOut'
     'left  right'
+    'middle middle'
     'bottom bottom';}
 
 /* general settings */
@@ -106,7 +107,7 @@ button:hover {
     background-color: ghostwhite;}
 
 /* ------------------ HOME PAGE ------------------*/    
-.HomePage{
+.Body{
     grid-area: left;
     text-align: center;
     width: 70vw;
@@ -118,11 +119,8 @@ button:hover {
     right: 0px;
     top: 0px;}
 
-#startEnd__button{
-    background: var(--color-Red);}
-
 .Reports{
-    grid-area: bottom;
+    grid-area: middle;
     margin-top: 30px;
     margin-left: 20vw;
     width: 60vw;
@@ -138,6 +136,11 @@ button:hover {
     text-align: center;
     display: none;}
 
+.bottom{
+    grid-area: bottom;
+    text-align: center;
+}
+
 th {
     font-family: BoldFont;
     font-size: 18px;
@@ -151,12 +154,16 @@ th {
         'logo logOut'
         'left left' 
         'right right'
+        'middle middle'
         'bottom bottom';}
 
     .split__left {
         margin: 0;}
 
     .split__right{
+        width: 80vw;}
+    .Reports{
+        margin-left: 0vh;
         width: 100%;}
 }
 
