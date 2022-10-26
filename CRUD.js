@@ -3,7 +3,7 @@ var currentUser = {"first_name": null, "last_name": null, "email": null, "userna
 
 const createNewUser = function(req,res){
     if(!req.body){
-        res.status(400).send({message: "content cannot be empty"});
+        res.status(400).render('Error', {var1: "ERROR 400", var2: "content cannot be empty"});
         return;
     }
     const newUser = {
@@ -24,7 +24,7 @@ const createNewUser = function(req,res){
             sql.query("INSERT INTO USERS SET ?", newUser, (err, mysqlres) => {
                 if (err) {
                     console.log("error: ", err);
-                    res.status(400).send({message: "error in creating user: " + err});
+                    res.status(400).render('Error', {var1: "ERROR 400", var2: "error in creating user: " + err});
                     return;
                 }
                 console.log("created user: ", {newUser});
@@ -37,7 +37,7 @@ const createNewUser = function(req,res){
 
 const checkLogIn = function(req,res){
     if(!req.body){
-        res.status(400).send({message: "content cannot be empty"});
+        res.status(400).render('Error', {var1: "ERROR 400", var2: "content cannot be empty"});
         return;
     }
     console.log(req.body.Username);
@@ -66,7 +66,7 @@ const HomePageUpload = (req,res)=>{
     sql.query("SELECT * FROM SHIFTS WHERE username= ?", currentUser.username , (err, mysqlres)=>{
         if (err) {
             console.log("error in getting shifts " + err);
-            res.status(400).send({message:"error in getting shifts " + err})
+            res.status(400).render('Error', {var1: "ERROR 400", var2: "error in getting shifts " + err});
             return;
         }
         var time = new Date().getHours();
@@ -98,7 +98,7 @@ const startEndShift = (req,res)=>{
     sql.query("SELECT * FROM SHIFTS WHERE username= ?", currentUser.username , (err, mysqlres)=>{
         if (err) {
             console.log("error in getting shifts " + err);
-            res.status(400).send({message:"error in getting shifts " + err})
+            res.status(400).render('Error', {var1: "ERROR 400", var2: "error in getting shifts " + err});
             return;
         }
         else if(mysqlres.length == 0 || mysqlres[mysqlres.length-1].end_time != null){
@@ -110,7 +110,7 @@ const startEndShift = (req,res)=>{
             sql.query("INSERT INTO SHIFTS SET ?", newShift , (err, mysqlres)=>{
                 if (err) {
                     console.log("error: ", err);
-                    res.status(400).send({message: "error in creating shift: " + err});
+                    res.status(400).render('Error', {var1: "ERROR 400", var2: "eerror in creating shift: " + err});
                     return;
                 }
                 console.log("created shift: ", {newShift});
@@ -125,7 +125,7 @@ const startEndShift = (req,res)=>{
             sql.query(query, [end_time, currentUser.username, date] , (err, mysqlres)=>{
                 if (err) {
                     console.log("error: ", err);
-                    res.status(400).send({message: "error in updating the end of the shift: " + err});
+                    res.status(400).render('Error', {var1: "ERROR 400", var2: "error in updating the end of the shift: " + err});
                     return;
                 }
                 console.log("shift ended in: ", {end_time});
@@ -147,7 +147,7 @@ const updateUserUpload = (req,res)=>{
 
 const updateUser = function(req,res){
     if(!req.body){
-        res.status(400).send({message: "content cannot be empty"});
+        res.status(400).render('Error', {var1: "ERROR 400", var2: "content cannot be empty"});
         return;
     }
     const UpdatedUser = {
@@ -160,7 +160,7 @@ const updateUser = function(req,res){
     sql.query("UPDATE USERS SET ? WHERE username = ? ", [UpdatedUser,currentUser.username]  , (err, mysqlres) => {
         if (err) {
             console.log("error: ", err);
-            res.status(400).send({message: "error in updating user: " + err});
+            res.status(400).render('Error', {var1: "ERROR 400", var2: "error in updating user: " + err});
             return;
         }
         currentUser = UpdatedUser;
@@ -177,4 +177,25 @@ const updateUser = function(req,res){
     }); 
 };
 
-module.exports = {createNewUser, checkLogIn, HomePageUpload, startEndShift, updateUserUpload, updateUser};
+const deleteUser = function(req,res){
+    sql.query("DELETE FROM SHIFTS WHERE username = ?", currentUser.username , (err, mysqlres) => {
+        if (err) {
+            console.log("error: ", err);
+            res.status(400).render('Error', {var1: "ERROR 400", var2: "error in deleting user's shifts: " + err});
+            return;
+        }
+        sql.query("DELETE FROM USERS WHERE username = ? ", currentUser.username , (err, mysqlres) => {
+            if (err) {
+                console.log("error: ", err);
+                res.status(400).render('Error', {var1: "ERROR 400", var2: "error in deleting the user: " + err});
+                return;
+            }
+            console.log("user: "+ currentUser.username + " deleted");
+            currentUser = {"first_name": null, "last_name": null, "email": null, "username": null, "password": null};
+            res.redirect('/');
+            return;
+        });
+    });
+}
+
+module.exports = {createNewUser, checkLogIn, HomePageUpload, startEndShift, updateUserUpload, updateUser, deleteUser};

@@ -12,14 +12,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,'public')));
 
 // open SignIn page
-app.get('/', function(req,res){
-    res.render("SignIn")
-});
+app.get('/', function(req,res){ res.render("SignIn") });
 
 // open SignUp page
-app.get('/SignUp', function(req,res){
-    res.render('SignUp') 
-});
+app.get('/SignUp', function(req,res){ res.render('SignUp') });
 
 // open HomePage
 app.get('/HomePage', CRUD.HomePageUpload);
@@ -38,6 +34,9 @@ app.post("/newUser", CRUD.createNewUser);
 
 // update user and open home page
 app.post("/updateUser", CRUD.updateUser);
+
+// delete user and back to SignIn page
+app.get("/deleteUser", CRUD.deleteUser);
 
 app.listen(port, function(){
     console.log("server is on port: " + port)

@@ -92,3 +92,11 @@ function UpdateValidation() {
         return false;}
     return true;
 }
+
+function toDelete(){
+    let text = "To delete this user and all his history click 'OK'; otherwise, click 'CANCEL'";
+    if (confirm(text)) {
+        return true;
+    }
+    return false;
+}

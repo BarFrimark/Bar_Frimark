@@ -12,7 +12,9 @@ block content
                 br
                 input.form__input#email(type="email", required, autofocus, name="email", value = email, placeholder="Email Address")
                 br
-                input.form__input#updatedPassword(type="text", required, autofocus, name="updatedPassword", value = password, placeholder="Password")
+                input.form__input#updatedPassword(type="password", required, autofocus, name="updatedPassword", value = password, placeholder="Password")
                 br
                 div(style={color:mColor})#updatemassage.errorMassage #{updated}
-                button(type="submit") Update
+                button(type="submit") Update User
+            form.form(action="/deleteUser", method="get", onsubmit="return toDelete()")
+                button#deleteButton(type="submit") Delete User
