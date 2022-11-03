@@ -16,5 +16,5 @@ block content
                 br
                 div(style={color:mColor})#updatemassage.errorMassage #{updated}
                 button(type="submit") Update User
-            form.form(action="/deleteUser", method="get", onsubmit="return toDelete()")
+            form.form(action="/deleteUser", method="post", onsubmit="return toDelete()")
                 button#deleteButton(type="submit") Delete User

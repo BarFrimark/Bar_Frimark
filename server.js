@@ -24,11 +24,11 @@ app.get('/', function(req,res){ res.render("SignIn") });
 app.get('/SignUp', function(req,res){ res.render('SignUp') });
 app.get('/HomePage', CRUD.HomePageUpload);
 app.get('/shiftButton', CRUD.startEndShift);
-app.get('/UserDetails', CRUD.updateUserUpload);
-app.get("/deleteUser", CRUD.deleteUser);
+app.get('/userDetails', CRUD.updateUserUpload);
 app.post('/checkLogIn', CRUD.checkLogIn);
-app.post("/newUser", CRUD.createNewUser);
-app.post("/updateUser", CRUD.updateUser);
+app.post('/newUser', CRUD.createNewUser);
+app.post('/updateUser', CRUD.updateUser);
+app.post('/deleteUser', CRUD.deleteUser);
 
 // listen
 app.listen(port, function(){

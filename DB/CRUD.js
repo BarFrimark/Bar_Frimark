@@ -110,7 +110,7 @@ const startEndShift = (req,res)=>{
             sql.query("INSERT INTO SHIFTS SET ?", newShift , (err, mysqlres)=>{
                 if (err) {
                     console.log("error: ", err);
-                    res.status(400).render('Error', {var1: "ERROR 400", var2: "eerror in creating shift: " + err});
+                    res.status(400).render('Error', {var1: "ERROR 400", var2: "error in creating shift: " + err});
                     return;
                 }
                 console.log("created shift: ", {newShift});
